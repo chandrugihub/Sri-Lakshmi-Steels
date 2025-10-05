@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Sri Lakshmi Steels</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary-yellow: #FDB813;
+            --primary-blue: #1E3A8A;
+            --dark-blue: #0F172A;
+            --light-bg: #ffffff;
+            --light-text: #1f2937;
+            --light-gray: #f3f4f6;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--light-text);
+            transition: all 0.3s ease;
+        }
+        nav {
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-yellow);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+        .nav-links a:hover {
+            color: var(--primary-yellow);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: 1rem;
+        }
+        .language-btn {
+            background: transparent;
+            border: 2px solid var(--primary-yellow);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .language-btn.active {
+            background: var(--primary-yellow);
+            color: var(--primary-blue);
+        }
+        .language-btn:hover {
+            background: var(--primary-yellow);
+            color: var(--primary-blue);
+        }
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: white;
+        }
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--primary-yellow);
+            color: var(--primary-blue);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .page-header {
+            background: linear-gradient(rgba(30, 58, 138, 0.9), rgba(15, 23, 42, 0.9)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300"><rect fill="%231E3A8A" width="1200" height="300"/><path fill="%23FDB813" opacity="0.1" d="M0 150 Q300 100 600 150 T1200 150 V300 H0 Z"/></svg>');
+            background-size: cover;
+            background-position: center;
+            padding: 4rem 2rem;
+            text-align: center;
+            color: white;
+        }
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--primary-yellow);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        section {
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--primary-blue);
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: var(--primary-yellow);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .category-card {
+            background: var(--light-gray);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px var(--shadow);
+        }
+        .category-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-yellow));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+        }
+        .category-info {
+            padding: 1.5rem;
+        }
+        .category-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-blue);
+        }
+        .category-info p {
+            margin-bottom: 1rem;
+            color: var(--light-text);
+        }
+        .view-products-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .view-products-btn:hover {
+            background: var(--dark-blue);
+            transform: scale(1.05);
+        }
+        .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .back-btn {
+            display: flex;
+            align-items: center;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            padding: 0.5rem 1rem;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid var(--primary-blue);
+        }
+        .back-btn:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+        .back-btn i {
+            margin-right: 0.5rem;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .product-card {
+            background: var(--light-gray);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: all 0.3s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px var(--shadow);
+        }
+        .product-info {
+            padding: 1.5rem;
+        }
+        .product-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-blue);
+        }
+        .product-specs {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+        .product-specs div {
+            margin-bottom: 0.3rem;
+        }
+        .product-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            background-color: #f0f0f0;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s ease;
+        }
+        .quantity-btn:hover {
+            background-color: #e0e0e0;
+        }
+        .quantity-input {
+            width: 40px;
+            height: 30px;
+            text-align: center;
+            border: none;
+            margin: 0;
+            background-color: white;
+            color: var(--light-text);
+            -moz-appearance: textfield;
+        }
+        .quantity-input::-webkit-outer-spin-button,
+        .quantity-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .add-to-cart-btn {
+            padding: 0.6rem 1.2rem;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        .add-to-cart-btn:hover {
+            background: var(--dark-blue);
+            transform: scale(1.05);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal.active {
+            display: flex;
+        }
+        .modal-content {
+            background: var(--light-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--primary-yellow);
+            padding-bottom: 1rem;
+        }
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--light-text);
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: var(--light-gray);
+            margin-bottom: 1rem;
+            border-radius: 10px;
+        }
+        .cart-item-info {
+            flex: 1;
+        }
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .remove-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .cart-total {
+            text-align: right;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 2rem 0;
+            color: var(--primary-blue);
+        }
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary-yellow);
+            color: var(--primary-blue);
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .checkout-btn:hover {
+            transform: scale(1.05);
+        }
+        .empty-cart {
+            text-align: center;
+            padding: 3rem;
+            color: var(--light-text);
+        }
+        .customer-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: var(--light-text);
+        }
+        .form-group input,
+        .form-group textarea {
+            padding: 0.8rem;
+            border: 2px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 1rem;
+            background: var(--light-bg);
+            color: var(--light-text);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
+        }
+        .back-home:hover {
+            color: var(--primary-yellow);
+            transform: translateX(-5px);
+        }
+        footer {
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--primary-blue);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 0;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+                z-index: 1001;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+            }
+            .nav-links a {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 1rem;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            .nav-links a:last-child {
+                border-bottom: none;
+            }
+            .language-switcher {
+                margin: 1rem 0;
+                justify-content: center;
+            }
+            .mobile-toggle {
+                display: block;
+            }
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .category-grid, .product-grid {
+                grid-template-columns: 1fr;
+            }
+            .product-actions {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: flex-start;
+            }
+            .quantity-controls {
+                margin: 0.5rem 0;
+            }
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                Sri Lakshmi Steels
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" data-en="Home" data-ta="முகப்பு">Home</a></li>
+                <li><a href="index.html#about" data-en="About" data-ta="எங்களைப் பற்றி">About</a></li>
+                <li><a href="index.html#feedback" data-en="Feedback" data-ta="கருத்துகள்">Feedback</a></li>
+                <li><a href="index.html#contact" data-en="Contact" data-ta="தொடர்பு">Contact</a></li>
+                <li>
+                    <div class="language-switcher">
+                        <button class="language-btn active" data-lang="en">EN</button>
+                        <button class="language-btn" data-lang="ta">தமிழ்</button>
+                    </div>
+                </li>
+                <li>
+                    <div class="cart-icon" id="cartIcon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                </li>
+            </ul>
+            <button class="mobile-toggle" id="mobileToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+    <div class="page-header">
+        <div class="container">
+            <a href="index.html" class="back-home">
+                <i class="fas fa-arrow-left"></i> <span data-en="Back to Home" data-ta="முகப்புக்குத் திரும்பு">Back to Home</span>
+            </a>
+            <h1 data-en="Purchase Products" data-ta="தயாரிப்புகளை வாங்க">Purchase Products</h1>
+            <p data-en="Explore our premium rolling shutter spares for smooth and reliable operations." data-ta="மென்மையான மற்றும் நம்பகமான செயல்பாட்டிற்கான எங்கள் பிரீமியம் ரோலிங் ஷட்டர் பாகங்களை ஆராயுங்கள்.">Explore our premium rolling shutter spares for smooth and reliable operations.</p>
+        </div>
+    </div>
+    <section id="categories">
+        <h2 class="section-title" data-en="Our Product Categories" data-ta="எங்கள் தயாரிப்பு வகைகள்">Our Product Categories</h2>
+        <div class="category-grid" id="categoryList"></div>
+    </section>
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 data-en="Your Cart" data-ta="உங்கள் கார்ட்">Your Cart</h2>
+                <button class="close-modal" id="closeCart">&times;</button>
+            </div>
+            <div id="cartItems"></div>
+        </div>
+    </div>
+    <div class="modal" id="customerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 data-en="Customer Details" data-ta="வாடிக்கையாளர் விவரங்கள்">Customer Details</h2>
+                <button class="close-modal" id="closeCustomer">&times;</button>
+            </div>
+            <form class="customer-form" id="customerForm">
+                <div class="form-group">
+                    <label for="customerName" data-en="Full Name *" data-ta="முழு பெயர் *">Full Name *</label>
+                    <input type="text" id="customerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="customerPhone" data-en="Phone Number *" data-ta="தொலைபேசி எண் *">Phone Number *</label>
+                    <input type="tel" id="customerPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="customerAddress" data-en="Delivery Address *" data-ta="விநியோக முகவரி *">Delivery Address *</label>
+                    <textarea id="customerAddress" required></textarea>
+                </div>
+                <button type="submit" class="checkout-btn" data-en="Place Order" data-ta="ஆர்டர் செய்">Place Order</button>
+            </form>
+        </div>
+    </div>
+    <footer>
+        <p data-en="Sri Lakshmi Steels" data-ta="ஸ்ரீ லட்சுமி ஸ்டீல்ஸ்">Sri Lakshmi Steels</p>
+        <p data-en="Quality Products | Trusted Partner" data-ta="தரமான தயாரிப்புகள் | நம்பகமான கூட்டாளர்">Quality Products | Trusted Partner</p>
+    </footer>
+    <script>
+        let currentLanguage = localStorage.getItem('language') || 'en';
+        
+        const translations = {
+            quantity: { en: 'Quantity', ta: 'அளவு' },
+            thickness: { en: 'Thickness', ta: 'தடிமன்' },
+            weight: { en: 'Weight', ta: 'எடை' },
+            addedToCart: { en: 'added to cart!', ta: 'கார்ட்டில் சேர்க்கப்பட்டது!' },
+            emptyCart: { en: 'Your cart is empty', ta: 'உங்கள் கார்ட் காலியாக உள்ளது' },
+            orderSubmitted: { en: 'Order submitted! Redirecting to WhatsApp...', ta: 'ஆர்டர் சமர்ப்பிக்கப்பட்டது! வாட்ஸ்அப்புக்கு திருப்பி விடப்படுகிறது...' },
+            noProducts: { en: 'No products available in this category.', ta: 'இந்த வகையில் தயாரிப்புகள் எதுவும் இல்லை.' },
+            proceedToCheckout: { en: 'Proceed to Checkout', ta: 'செக்அவுட்டுக்குச் செல்' }
+        };
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguage(currentLanguage);
+            loadCategories();
+            updateCartCount();
+            
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    setLanguage(lang);
+                });
+            });
+        });
+        
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            localStorage.setItem('language', lang);
+            
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            document.querySelectorAll('[data-en]').forEach(element => {
+                if (lang === 'en') {
+                    element.textContent = element.getAttribute('data-en');
+                } else if (lang === 'ta') {
+                    element.textContent = element.getAttribute('data-ta');
+                }
+            });
+            
+            const placeholders = {
+                'en': {
+                    'customerName': 'Enter your full name',
+                    'customerPhone': 'Enter your phone number',
+                    'customerAddress': 'Enter delivery address'
+                },
+                'ta': {
+                    'customerName': 'உங்கள் முழு பெயரை உள்ளிடவும்',
+                    'customerPhone': 'உங்கள் தொலைபேசி எண்ணை உள்ளிடவும்',
+                    'customerAddress': 'விநியோக முகவரியை உள்ளிடவும்'
+                }
+            };
+            
+            Object.keys(placeholders[lang]).forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.placeholder = placeholders[lang][id];
+                }
+            });
+            
+            if (currentView === 'categories') {
+                loadCategories();
+            }
+        }
+        
+        const products = {
+            sideplates: [
+                { id: 'sp1', name: { en: 'Side Plate 13.5" x 13.5" + 2.5"(folding)', ta: 'சைட் பிளேட் 13.5" x 13.5" + 2.5"(மடிப்பு)' }, thickness: '2.0 mm', weight: '4.5 KG' },
+                { id: 'sp2', name: { en: 'Side Plate 13.5" x 15" + 2.5"(folding)', ta: 'சைட் பிளேட் 13.5" x 15" + 2.5"(மடிப்பு)' }, thickness: '2.0 mm', weight: '5.5 KG' },
+                { id: 'sp3', name: { en: 'Side Plate 15" x 15" + 2.5"(folding)', ta: 'சைட் பிளேட் 15" x 15" + 2.5"(மடிப்பு)' }, thickness: '2.5 mm', weight: '7.5 KG' }
+            ],
+            pulleys: [
+                { id: 'pul1', name: { en: '7" Bearing Pulley - 48 OD Pipe', ta: '7" பியரிங் புல்லி - 48 OD பைப்' }, thickness: '-', weight: '-' },
+                { id: 'pul2', name: { en: '8" Bearing Pulley - 48 OD Pipe', ta: '8" பியரிங் புல்லி - 48 OD பைப்' }, thickness: '-', weight: '-' },
+                { id: 'pul3', name: { en: '9" Bearing Pulley - 48 OD Pipe', ta: '9" பியரிங் புல்லி - 48 OD பைப்' }, thickness: '-', weight: '-' },
+                { id: 'pul4', name: { en: '9" Bearing Pulley - 60 OD Pipe', ta: '9" பியரிங் புல்லி - 60 OD பைப்' }, thickness: '-', weight: '-' }
+            ],
+            springs: [
+                { id: 'spr1', name: { en: 'Springs - 5g 9"', ta: 'விற்சுருள்கள் - 5g 9"' }, thickness: '4.0 mm', weight: '4.0 KG' },
+                { id: 'spr2', name: { en: 'Springs - 5g 12"', ta: 'விற்சுருள்கள் - 5g 12"' }, thickness: '4.0 mm', weight: '4.8 KG' },
+                { id: 'spr3', name: { en: 'Springs - 4g 12"', ta: 'விற்சுருள்கள் - 4g 12"' }, thickness: '5.0 mm', weight: '6.0 KG' },
+                { id: 'spr4', name: { en: 'Springs - 4g 15"', ta: 'விற்சுருள்கள் - 4g 15"' }, thickness: '5.0 mm', weight: '6.5 KG' },
+                { id: 'spr5', name: { en: 'Springs - 3g 12"', ta: 'விற்சுருள்கள் - 3g 12"' }, thickness: '6.0 mm', weight: '6.5 KG' },
+                { id: 'spr6', name: { en: 'Springs - 3g 15"', ta: 'விற்சுருள்கள் - 3g 15"' }, thickness: '6.0 mm', weight: '7.5 KG' }
+            ],
+            pipes: [
+                { id: 'pip1', name: { en: 'Shaft Pipe - 48 OD - 20 feet', ta: 'ஷாஃப்ட் பைப் - 48 OD - 20 அடி' }, thickness: '2.0 mm', weight: '14.5 kg' },
+                { id: 'pip2', name: { en: 'Shaft Pipe - 48 OD - 20 feet', ta: 'ஷாஃப்ட் பைப் - 48 OD - 20 அடி' }, thickness: '2.5 mm', weight: '17.5 kg' },
+                { id: 'pip3', name: { en: 'Shaft Pipe - 48 OD - 20 feet', ta: 'ஷாஃப்ட் பைப் - 48 OD - 20 அடி' }, thickness: '3.0 mm', weight: '20.0 kg' },
+                { id: 'pip4', name: { en: 'Shaft Pipe - 60 OD - 20 feet', ta: 'ஷாஃப்ட் பைப் - 60 OD - 20 அடி' }, thickness: '4.5 mm', weight: '33.0 kg' }
+            ],
+            locks: [
+                { id: 'loc1', name: { en: 'Lock Set', ta: 'பூட்டு செட்' }, thickness: '-', weight: '-' },
+                { id: 'loc2', name: { en: 'Centre Lock', ta: 'சென்டர் பூட்டு' }, thickness: '-', weight: '-' },
+                { id: 'loc3', name: { en: 'Side Lock', ta: 'சைட் பூட்டு' }, thickness: '-', weight: '-' }
+            ],
+            gearbox: [
+                { id: 'gbx1', name: { en: 'Gear Box Set (Single Side)', ta: 'கியர் பாக்ஸ் செட் (ஒற்றை பக்கம்)' }, thickness: '-', weight: '-' },
+                { id: 'gbx2', name: { en: 'Gear Box Set (Double Side)', ta: 'கியர் பாக்ஸ் செட் (இரட்டை பக்கம்)' }, thickness: '-', weight: '-' },
+                { id: 'gbx3', name: { en: '7" x 7" Round Plate', ta: '7" x 7" வட்ட தட்டு' }, thickness: '2.5 mm', weight: '-' },
+                { id: 'gbx4', name: { en: '7" Ring', ta: '7" வளையம்' }, thickness: '5.0 mm', weight: '-' }
+            ],
+            topcovers: [
+                { id: 'top1', name: { en: 'Top Cover - 8\' x 3\'', ta: 'மேல் கவர் - 8\' x 3\'' }, thickness: '0.050 mm', weight: '7.5 kg' },
+                { id: 'top2', name: { en: 'Top Cover - 9\' x 3\'', ta: 'மேல் கவர் - 9\' x 3\'' }, thickness: '0.050 mm', weight: '8.5 kg' },
+                { id: 'top3', name: { en: 'Top Cover - 10\' x 3\'', ta: 'மேல் கவர் - 10\' x 3\'' }, thickness: '0.050 mm', weight: '9.0 kg' },
+                { id: 'top4', name: { en: 'Top Cover - 11\' x 3\'', ta: 'மேல் கவர் - 11\' x 3\'' }, thickness: '0.050 mm', weight: '10.0 kg' },
+                { id: 'top5', name: { en: 'Top Cover - 12\' x 3\'', ta: 'மேல் கவர் - 12\' x 3\'' }, thickness: '0.050 mm', weight: '10.0 kg' },
+                { id: 'top6', name: { en: 'Top Cover - 13\' x 3\'', ta: 'மேல் கவர் - 13\' x 3\'' }, thickness: '0.050 mm', weight: '10.0 kg' }
+            ],
+            motors: [
+                { id: 'mot1', name: { en: 'Chain Motor 400kg - 1ph', ta: 'செயின் மோட்டார் 400kg - 1ph' }, thickness: '-', weight: '-' },
+                { id: 'mot2', name: { en: 'Chain Motor 600kg - 1ph', ta: 'செயின் மோட்டார் 600kg - 1ph' }, thickness: '-', weight: '-' },
+                { id: 'mot3', name: { en: 'Chain Motor 800kg - 1ph', ta: 'செயின் மோட்டார் 800kg - 1ph' }, thickness: '-', weight: '-' },
+                { id: 'mot4', name: { en: 'Chain Motor 1000kg - 1ph', ta: 'செயின் மோட்டார் 1000kg - 1ph' }, thickness: '-', weight: '-' },
+                { id: 'mot5', name: { en: 'Chain Motor 1500kg - 1ph', ta: 'செயின் மோட்டார் 1500kg - 1ph' }, thickness: '-', weight: '-' }
+            ],
+            leaf: [
+                { id: 'leaf1', name: { en: 'MS ( Round ) Leaf - 21 G (per metre)', ta: 'எம்.எஸ் ( வட்டமான ) இலை - 21 G (ஒரு மீட்டர்)' }, thickness: '0.8 mm', weight: '0.750 g' },
+                { id: 'leaf2', name: { en: 'MS ( Square ) Leaf - 21 G (per metre)', ta: 'எம்.எஸ் ( சதுர ) இலை - 21 G (ஒரு மீட்டர்)' }, thickness: '0.8 mm', weight: '0.750 g' },
+                { id: 'leaf3', name: { en: 'MS ( Full flat ) Leaf - 21 G (per metre)', ta: 'எம்.எஸ் ( முழு தட்டையான ) இலை - 21 G (ஒரு மீட்டர்)' }, thickness: '0.8 mm', weight: '0.750 g' },
+                { id: 'leaf4', name: { en: 'MS ( Round ) Leaf - 20 G (per metre)', ta: 'எம்.எஸ் ( வட்டமான ) இலை - 20 G (ஒரு மீட்டர்)' }, thickness: '0.9 mm', weight: '0.850 g' },
+                { id: 'leaf5', name: { en: 'MS ( Square ) Leaf - 20 G (per metre)', ta: 'எம்.எஸ் ( சதுர ) இலை - 20 G (ஒரு மீட்டர்)' }, thickness: '0.9 mm', weight: '0.850 g' },
+                { id: 'leaf6', name: { en: 'MS ( Full flat ) Leaf - 20 G (per metre)', ta: 'எம்.எஸ் ( முழு தட்டையான ) இலை - 20 G (ஒரு மீட்டர்)' }, thickness: '0.9 mm', weight: '0.850 g' },
+                { id: 'leaf7', name: { en: 'MS (Round ) Leaf - 19 G (per metre)', ta: 'எம்.எஸ் ( வட்டமான ) இலை - 19 G (ஒரு மீட்டர்)' }, thickness: '1.0 mm', weight: '0.950 g' },
+                { id: 'leaf8', name: { en: 'MS ( Square ) Leaf - 19 G (per metre)', ta: 'எம்.எஸ் ( சதுர ) இலை - 19 G (ஒரு மீட்டர்)' }, thickness: '1.0 mm', weight: '0.950 g' },
+                { id: 'leaf9', name: { en: 'MS ( Full flat ) Leaf - 19 G (per metre)', ta: 'எம்.எஸ் ( முழு தட்டையான ) இலை - 19 G (ஒரு மீட்டர்)' }, thickness: '1.0 mm', weight: '0.950 g' },
+                { id: 'leaf10', name: { en: 'MS ( Round ) Leaf - 18 G (per metre)', ta: 'எம்.எஸ் ( வட்டமான ) இலை - 18 G (ஒரு மீட்டர்)' }, thickness: '1.25 mm', weight: '1.200 kg' },
+                { id: 'leaf11', name: { en: 'MS ( Square ) Leaf - 18 G (per metre)', ta: 'எம்.எஸ் ( சதுர ) இலை - 18 G (ஒரு மீட்டர்)' }, thickness: '1.25 mm', weight: '1.200 kg' },
+                { id: 'leaf12', name: { en: 'MS ( Full flat ) Leaf - 18 G (per metre)', ta: 'எம்.எஸ் ( முழு தட்டையான ) இலை - 18 G (ஒரு மீட்டர்)' }, thickness: '1.25 mm', weight: '1.200 kg' }
+            ],
+            bpc: [
+                { id: 'bpc1', name: { en: 'Bottom plate - 12 G (per metre)', ta: 'கீழ் தட்டு - 12 G (ஒரு மீட்டர்)' }, thickness: '2.5 mm', weight: '2.75 kg' },
+                { id: 'bcp2', name: { en: '2.5" Guide Channel - 12 G (per metre)', ta: '2.5" வழிகாட்டி சேனல் - 12 G (ஒரு மீட்டர்)' }, thickness: '2.5 mm', weight: '2.5 kg' },
+                { id: 'bcp3', name: { en: '3.0" Guide Channel - 10 G (per metre)', ta: '3.0" வழிகாட்டி சேனல் - 10 G (ஒரு மீட்டர்)' }, thickness: '2.55 mm', weight: '3.5 kg' }
+            ]
+        };
+        
+        const categories = [
+            { 
+                id: 'sideplates', 
+                name: { en: 'Side Plates', ta: 'சைட் பிளேட்டுகள்' }, 
+                image: 'https://i.postimg.cc/6QyTL6BB/Screenshot-2025-06-08-120216.png', 
+                desc: { en: 'Available in various sizes with 2.0 mm to 2.5 mm thickness', ta: '2.0 மிமீ முதல் 2.5 மிமீ தடிமன் கொண்ட பல்வேறு அளவுகளில் கிடைக்கும்' } 
+            },
+            { 
+                id: 'pulleys', 
+                name: { en: 'Pulleys', ta: 'புல்லிகள்' }, 
+                image:'https://i.postimg.cc/15wGwHJv/Screenshot-2025-06-08-120148.png', 
+                desc: { en: 'Ordinary and Bearing Pulleys in 7", 8", 9" sizes', ta: '7", 8", 9" அளவுகளில் சாதாரண மற்றும் பியரிங் புல்லிகள்' } 
+            },
+            { 
+                id: 'springs', 
+                name: { en: 'Springs', ta: 'விற்சுருள்கள்' }, 
+                image:'https://i.postimg.cc/vHg9MvJQ/Screenshot-2025-06-08-120017.png', 
+                desc: { en: 'Various sizes from 5g to 00g with 4 mm to 9 mm thickness', ta: '4 மிமீ முதல் 9 மிமீ தடிமன் கொண்ட 5g முதல் 00g வரை பல்வேறு அளவுகள்' } 
+            },
+            { 
+                id: 'pipes', 
+                name: { en: 'Shaft & Gear Pipes', ta: 'ஷாஃப்ட் & கியர் குழாய்கள்' }, 
+                image:'https://i.postimg.cc/pVqT7nyP/Screenshot-2025-06-08-121113.png', 
+                desc: { en: '48 OD and 60 OD pipes in various thicknesses', ta: '48 OD மற்றும் 60 OD குழாய்கள் பல்வேறு தடிமன்களில்' } 
+            },
+            { 
+                id: 'locks', 
+                name: { en: 'Lock Sets', ta: 'பூட்டு செட்கள்' }, 
+                image:'https://i.postimg.cc/cCLT18QQ/Screenshot-2025-06-08-115943.png', 
+                desc: { en: 'Lock set, Centre Lock, and Side Lock available', ta: 'பூட்டு செட், சென்டர் பூட்டு மற்றும் சைட் பூட்டு கிடைக்கும்' } 
+            },
+            { 
+                id: 'gearbox', 
+                name: { en: 'Gear Box & Plates', ta: 'கியர் பாக்ஸ் & பிளேட்டுகள்' }, 
+                image:'https://i.postimg.cc/02QLWgRt/Screenshot-2025-06-08-115326.png', 
+                desc: { en: 'Gear box sets, round plates, and rings', ta: 'கியர் பாக்ஸ் செட்கள், வட்ட தட்டுகள் மற்றும் வளையங்கள்' } 
+            },
+            { 
+                id: 'topcovers', 
+                name: { en: 'Top Covers', ta: 'மேல் கவர்கள்' }, 
+                image:'https://i.postimg.cc/15mJMD6s/Screenshot-2025-06-08-115547.png', 
+                desc: { en: 'Available in sizes from 8\'x3\' to 13\'x3\'', ta: '8\'x3\' முதல் 13\'x3\' வரை அளவுகளில் கிடைக்கும்' } 
+            },
+            { 
+                id: 'motors', 
+                name: { en: 'Chain Motors', ta: 'செயின் மோட்டார்கள்' }, 
+                image:'https://i.postimg.cc/Qd48Vggt/Screenshot-2025-06-08-115724.png', 
+                desc: { en: 'With remote control from 400 kg to 1500 kg capacity', ta: 'ரிமோட் கண்ட்ரோல் உடன் 400 கிலோ முதல் 1500 கிலோ திறன் வரை' } 
+            },
+            { 
+                id: 'leaf', 
+                name: { en: 'MS Leaf', ta: 'எம்.எஸ் இலை' }, 
+                image:'https://i.postimg.cc/mr2rwYGx/rolling-shutter-iron-shutter-patti-2185402413-28cuf1l9.avif', 
+                desc: { en: 'Available in various sizes with 0.8 mm to 1.25 mm', ta: '0.8 மிமீ முதல் 1.25 மிமீ வரை பல்வேறு அளவுகளில் கிடைக்கும்' } 
+            },
+            { 
+                id: 'bpc', 
+                name: { en: 'Bottom Plate & Channel', ta: 'கீழ் தட்டு & சேனல்' }, 
+                image:'https://i.postimg.cc/xdWSznsJ/Screenshot-2025-06-08-115909.png', 
+                desc: { en: 'Available in various sizes', ta: 'பல்வேறு அளவுகளில் கிடைக்கும்' } 
+            }
+        ];
+        
+        let cart = [];
+        let currentView = 'categories';
+        
+        function loadCategories() {
+            const container = document.getElementById('categories');
+            container.innerHTML = `
+                <h2 class="section-title" data-en="Our Product Categories" data-ta="எங்கள் தயாரிப்பு வகைகள்">${currentLanguage === 'en' ? 'Our Product Categories' : 'எங்கள் தயாரிப்பு வகைகள்'}</h2>
+                <div class="category-grid" id="categoryList"></div>
+            `;
+            
+            const categoryList = document.getElementById('categoryList');
+            categoryList.innerHTML = '';
+            
+            categories.forEach(category => {
+                const categoryCard = document.createElement('div');
+                categoryCard.className = 'category-card';
+                categoryCard.onclick = function() { loadProducts(category.id); };
+                categoryCard.innerHTML = `
+                    <div class="category-image">
+                         <img src="${category.image}" alt="${category.name.en}" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="category-info">
+                        <h3 class="category-title">${currentLanguage === 'en' ? category.name.en : category.name.ta}</h3>
+                        <p class="category-desc">${currentLanguage === 'en' ? category.desc.en : category.desc.ta}</p>
+                        <button class="view-products-btn">${currentLanguage === 'en' ? 'View Products' : 'தயாரிப்புகளைக் காண'}</button>
+                    </div>
+                `;
+                categoryList.appendChild(categoryCard);
+            });
+            
+            currentView = 'categories';
+        }
+        
+        function loadProducts(categoryId) {
+            const container = document.getElementById('categories');
+            const category = categories.find(c => c.id === categoryId);
+            
+            container.innerHTML = `
+                <div class="product-header">
+                    <a href="javascript:void(0)" class="back-btn" onclick="loadCategories()">
+                        <i class="fas fa-arrow-left"></i> <span>${currentLanguage === 'en' ? 'Back to Categories' : 'வகைகளுக்குத் திரும்பு'}</span>
+                    </a>
+                    <h2 class="section-title">${category ? (currentLanguage === 'en' ? category.name.en : category.name.ta) : (currentLanguage === 'en' ? 'Products' : 'தயாரிப்புகள்')}</h2>
+                </div>
+                <div class="product-grid" id="productList"></div>
+            `;
+            
+            const productList = document.getElementById('productList');
+            const categoryProducts = products[categoryId] || [];
+            
+            if (categoryProducts.length === 0) {
+                productList.innerHTML = `<p>${translations.noProducts[currentLanguage]}</p>`;
+                return;
+            }
+            
+            categoryProducts.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                const productName = typeof product.name === 'object' ? product.name[currentLanguage] : product.name;
+                productCard.innerHTML = `
+                    <div class="product-info">
+                        <h3 class="product-title">${productName}</h3>
+                        <div class="product-specs">
+                            ${product.thickness !== '-' ? `<div><strong>${translations.thickness[currentLanguage]}:</strong> ${product.thickness}</div>` : ''}
+                            ${product.weight !== '-' ? `<div><strong>${translations.weight[currentLanguage]}:</strong> ${product.weight}</div>` : ''}
+                        </div>
+                        <div class="product-actions">
+                            <div class="quantity-controls">
+                                <button class="quantity-btn minus" onclick="updateProductCardQuantity(this, -1)">-</button>
+                                <input type="number" class="quantity-input" value="1" min="1">
+                                <button class="quantity-btn plus" onclick="updateProductCardQuantity(this, 1)">+</button>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart('${product.id}', this.parentNode.querySelector('.quantity-input').value)">
+                                ${currentLanguage === 'en' ? 'Add to Cart' : 'கார்ட்டில் சேர்'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+                productList.appendChild(productCard);
+            });
+            
+            currentView = 'products';
+        }
+        
+        function updateProductCardQuantity(btn, change) {
+            const input = btn.parentNode.querySelector('.quantity-input');
+            let newValue = parseInt(input.value) + change;
+            if (isNaN(newValue) || newValue < 1) newValue = 1; 
+            input.value = newValue;
+        }
+        
+        function findProductById(productId) {
+            for (const categoryId in products) {
+                const found = products[categoryId].find(p => p.id === productId);
+                if (found) {
+                    return found;
+                }
+            }
+            return null;
+        }
+        
+        function addToCart(productId, quantity) {
+            quantity = parseInt(quantity);
+            if (isNaN(quantity) || quantity < 1) quantity = 1;
+            
+            const existingItemIndex = cart.findIndex(item => item.productId === productId);
+            const productInfo = findProductById(productId);
+            if (!productInfo) return;
+            
+            const productName = typeof productInfo.name === 'object' ? productInfo.name[currentLanguage] : productInfo.name;
+            
+            if (existingItemIndex > -1) {
+                cart[existingItemIndex].quantity += quantity;
+            } else {
+                cart.push({
+                    productId: productId,
+                    name: productName,
+                    nameEn: typeof productInfo.name === 'object' ? productInfo.name.en : productInfo.name,
+                    nameTa: typeof productInfo.name === 'object' ? productInfo.name.ta : productInfo.name,
+                    quantity: quantity,
+                    thickness: productInfo.thickness,
+                    weight: productInfo.weight
+                });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            showNotification(`${quantity} x ${productName} ${translations.addedToCart[currentLanguage]}`);
+        }
+        
+        function updateCartCount() {
+            const cartCount = document.getElementById('cartCount');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+        }
+        
+        document.getElementById('cartIcon').addEventListener('click', () => {
+            renderCart();
+            document.getElementById('cartModal').classList.add('active');
+        });
+        
+        function renderCart() {
+            const cartItemsDiv = document.getElementById('cartItems');
+            
+            if (cart.length === 0) {
+                cartItemsDiv.innerHTML = `<div class="empty-cart"><i class="fas fa-shopping-cart" style="font-size: 4rem; color: var(--light-text); opacity: 0.3;"></i><p>${translations.emptyCart[currentLanguage]}</p></div>`;
+                return;
+            }
+            
+            cartItemsDiv.innerHTML = `
+                ${cart.map(item => {
+                    const displayName = currentLanguage === 'en' ? item.nameEn : item.nameTa;
+                    return `
+                        <div class="cart-item">
+                            <div class="cart-item-info">
+                                <h4>${displayName}</h4>
+                                ${item.thickness && item.thickness !== '-' ? `<p>${translations.thickness[currentLanguage]}: ${item.thickness}</p>` : ''}
+                                ${item.weight && item.weight !== '-' ? `<p>${translations.weight[currentLanguage]}: ${item.weight}</p>` : ''}
+                            </div>
+                            <div class="cart-item-controls">
+                                <div class="quantity-control">
+                                    <button class="quantity-btn" onclick="updateCartItemQuantity('${item.productId}', -1)">-</button>
+                                    <span>${item.quantity}</span>
+                                    <button class="quantity-btn" onclick="updateCartItemQuantity('${item.productId}', 1)">+</button>
+                                </div>
+                                <button class="remove-btn" onclick="removeFromCart('${item.productId}')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('')}
+                <button class="checkout-btn" onclick="proceedToCheckout()">${translations.proceedToCheckout[currentLanguage]}</button>
+            `;
+        }
+        
+        function updateCartItemQuantity(productId, change) {
+            const item = cart.find(i => i.productId === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    updateCartCount();
+                    renderCart();
+                }
+            }
+        }
+        
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.productId !== productId);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            renderCart();
+        }
+        
+        function proceedToCheckout() {
+            document.getElementById('cartModal').classList.remove('active');
+            document.getElementById('customerModal').classList.add('active');
+        }
+        
+        document.getElementById('customerForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('customerName').value;
+            const phone = document.getElementById('customerPhone').value;
+            const address = document.getElementById('customerAddress').value;
+            
+            let message = currentLanguage === 'en' 
+                ? `New Order from Sri Lakshmi Steels Website\n\n` 
+                : `ஸ்ரீ லட்சுமி ஸ்டீல்ஸ் வலைத்தளத்திலிருந்து புதிய ஆர்டர்\n\n`;
+            
+            message += currentLanguage === 'en' ? `Customer Details:\n` : `வாடிக்கையாளர் விவரங்கள்:\n`;
+            message += currentLanguage === 'en' ? `Name: ${name}\n` : `பெயர்: ${name}\n`;
+            message += currentLanguage === 'en' ? `Phone: ${phone}\n` : `தொலைபேசி: ${phone}\n`;
+            message += currentLanguage === 'en' ? `Address: ${address}\n\n` : `முகவரி: ${address}\n\n`;
+            message += currentLanguage === 'en' ? `Order Details:\n` : `ஆர்டர் விவரங்கள்:\n`;
+            message += `─────────────────\n`;
+            
+            cart.forEach(item => {
+                const displayName = currentLanguage === 'en' ? item.nameEn : item.nameTa;
+                message += `\n${displayName}\n`;
+                message += currentLanguage === 'en' ? `Quantity: ${item.quantity}\n` : `அளவு: ${item.quantity}\n`;
+                if (item.thickness && item.thickness !== '-') message += currentLanguage === 'en' ? `Thickness: ${item.thickness}\n` : `தடிமன்: ${item.thickness}\n`;
+                if (item.weight && item.weight !== '-') message += currentLanguage === 'en' ? `Weight: ${item.weight}\n` : `எடை: ${item.weight}\n`;
+                message += `─────────────────\n`;
+            });
+            
+            message += currentLanguage === 'en' 
+                ? `\nThank you for choosing Sri Lakshmi Steels!`
+                : `\nஸ்ரீ லட்சுமி ஸ்டீல்ஸைத் தேர்ந்தெடுத்ததற்கு நன்றி!`;
+            
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/916385352109?text=${encodedMessage}`;
+            
+            window.open(whatsappUrl, '_blank');
+            
+            cart = [];
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            document.getElementById('customerModal').classList.remove('active');
+            document.getElementById('customerForm').reset();
+            
+            showNotification(translations.orderSubmitted[currentLanguage]);
+        });
+        
+        document.getElementById('closeCart').addEventListener('click', () => {
+            document.getElementById('cartModal').classList.remove('active');
+        });
+        
+        document.getElementById('closeCustomer').addEventListener('click', () => {
+            document.getElementById('customerModal').classList.remove('active');
+        });
+        
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
+        
+        document.getElementById('mobileToggle').addEventListener('click', () => {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+        
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: var(--primary-yellow);
+                color: var(--primary-blue);
+                padding: 1rem 2rem;
+                border-radius: 10px;
+                font-weight: bold;
+                z-index: 3000;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
